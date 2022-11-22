@@ -267,4 +267,24 @@ object Notification {
             notify(12544567, notification)
         }
     }
+
+    fun createFullScreenIntentNotification(context: Context){
+        val fullScreenIntent = Intent(context, MainActivity2::class.java)
+        val fullScreenPendingIntent = PendingIntent.getActivity(context, 0,
+            fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
+
+        val notificationBuilder =
+            NotificationCompat.Builder(context, NotificationChannels.CHANNEL1)
+                .setSmallIcon(R.drawable.desk)
+                .setContentTitle("Incoming call")
+                .setContentText("+9178458787XXX")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_CALL)
+                .setFullScreenIntent(fullScreenPendingIntent, true)
+
+        val incomingCallNotification = notificationBuilder.build()
+        with(NotificationManagerCompat.from(context)) {
+            notify(1445457, incomingCallNotification)
+        }
+    }
 }

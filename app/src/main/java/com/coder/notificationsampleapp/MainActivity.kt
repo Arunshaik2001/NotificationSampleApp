@@ -13,6 +13,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -22,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.coder.notificationsampleapp.notifcation_channels.NotificationChannels.createNotificationChannel
 import com.coder.notificationsampleapp.notification.Notification
 import com.coder.notificationsampleapp.ui.theme.NotificationSampleAppTheme
+import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +47,11 @@ fun HomeScreen(){
     val context = LocalContext.current
     val permissionGranted = remember {
         mutableStateOf(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+    }
+
+    LaunchedEffect(key1 = true) {
+        delay(5000)
+        Notification.createFullScreenIntentNotification(context)
     }
 
     Log.i("RequestPermission","${permissionGranted.value}")
@@ -98,9 +105,17 @@ fun HomeScreen(){
             }
 
             Button(onClick = {
+
                 Notification.createNotificationWithMediaControl(context)
             }) {
                 Text(text = "Notification with media controls")
+            }
+
+            Button(onClick = {
+
+                Notification.createFullScreenIntentNotification(context)
+            }) {
+                Text(text = "Notification with full screen intent")
             }
         }
     }

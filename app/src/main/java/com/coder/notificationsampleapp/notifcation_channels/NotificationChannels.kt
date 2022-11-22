@@ -17,7 +17,7 @@ object NotificationChannels {
             val notificationChannel = NotificationChannel(
                 CHANNEL1,
                 "channel1",
-                NotificationManager.IMPORTANCE_DEFAULT
+                NotificationManager.IMPORTANCE_HIGH
             )
             notificationChannel.description = "My first notification channel"
             notificationChannel.lockscreenVisibility = Notification.VISIBILITY_SECRET
