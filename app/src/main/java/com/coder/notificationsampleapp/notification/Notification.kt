@@ -25,6 +25,8 @@ import com.coder.notificationsampleapp.R
 
 object Notification {
     const val KEY_TEXT_REPLY = "key_text_reply"
+    const val GROUP_KEY_WORK_EMAIL = "com.android.example.WORK_EMAIL"
+    const val SUMMARY_ID = 0
 
     fun simpleNotification(context: Context, textTitle: String, textContent: String) {
         val notificationId = 12313
@@ -286,5 +288,49 @@ object Notification {
         with(NotificationManagerCompat.from(context)) {
             notify(1445457, incomingCallNotification)
         }
+    }
+
+    fun createGroupNotification(context: Context){
+        val icon = BitmapFactory.decodeResource(
+            context.resources,
+            R.drawable.aquarium
+        )
+
+        val newMessageNotification1 = NotificationCompat.Builder(context, NotificationChannels.CHANNEL1)
+            .setSmallIcon(R.drawable.email)
+            .setContentTitle("Arun")
+            .setContentText("Ooo")
+            .setLargeIcon(icon)
+            .setGroup(GROUP_KEY_WORK_EMAIL)
+            .build()
+
+        val newMessageNotification2 = NotificationCompat.Builder(context, NotificationChannels.CHANNEL1)
+            .setSmallIcon(R.drawable.email)
+            .setContentTitle("Alex")
+            .setContentText("Outside")
+            .setLargeIcon(icon)
+            .setGroup(GROUP_KEY_WORK_EMAIL)
+            .build()
+
+        val summaryNotification = NotificationCompat.Builder(context, NotificationChannels.CHANNEL1)
+            .setContentTitle("Summary")
+            .setContentText("Two new messages")
+            .setSmallIcon(R.drawable.email)
+            .setStyle(NotificationCompat.InboxStyle()
+                .addLine("Arun Ooo")
+                .addLine("Alex Outside")
+                .setBigContentTitle("2 new messages")
+                .setSummaryText("arun@example.com"))
+            .setGroup(GROUP_KEY_WORK_EMAIL)
+            .setGroupSummary(true)
+            .build()
+
+
+        with(NotificationManagerCompat.from(context)) {
+            notify(2454, newMessageNotification1)
+            notify(35, newMessageNotification2)
+            notify(SUMMARY_ID, summaryNotification)
+        }
+
     }
 }

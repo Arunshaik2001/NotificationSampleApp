@@ -49,13 +49,6 @@ fun HomeScreen(){
         mutableStateOf(Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
     }
 
-    LaunchedEffect(key1 = true) {
-        delay(5000)
-        Notification.createFullScreenIntentNotification(context)
-    }
-
-    Log.i("RequestPermission","${permissionGranted.value}")
-
     if(!permissionGranted.value) {
         RequestNotificationPermission {
             permissionGranted.value = true
@@ -116,6 +109,13 @@ fun HomeScreen(){
                 Notification.createFullScreenIntentNotification(context)
             }) {
                 Text(text = "Notification with full screen intent")
+            }
+
+            Button(onClick = {
+
+                Notification.createGroupNotification(context)
+            }) {
+                Text(text = "Notification with group notifications")
             }
         }
     }
