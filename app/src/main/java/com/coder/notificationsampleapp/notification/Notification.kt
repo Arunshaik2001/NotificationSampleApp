@@ -4,15 +4,15 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.media.MediaSession2Service.MediaNotification
-import android.media.session.MediaSession
 import android.support.v4.media.session.MediaSessionCompat
+import android.util.Log
+import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.VISIBILITY_SECRET
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.app.Person
 import androidx.core.app.RemoteInput
 import androidx.core.app.TaskStackBuilder
+import com.coder.data.message.Message
 import com.coder.notificationsampleapp.MainActivity2
 import com.coder.notificationsampleapp.broadcast_receiver.MyBroadCastReceiver
 import com.coder.notificationsampleapp.notifcation_channels.NotificationChannels
@@ -127,12 +127,14 @@ object Notification {
         }
     }
 
-    fun createNotificationWithBackStack(context: Context){
+    fun createNotificationWithBackStack(context: Context) {
         val resultIntent = Intent(context, MainActivity2::class.java)
         val resultPendingIntent: PendingIntent? = TaskStackBuilder.create(context).run {
             addNextIntentWithParentStack(resultIntent)
-            getPendingIntent(0,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+            getPendingIntent(
+                0,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
         }
 
         val builder = NotificationCompat.Builder(context, NotificationChannels.CHANNEL1)
@@ -155,7 +157,7 @@ object Notification {
         notificationManagerCompat.notify(12345, builder.build())
     }
 
-    fun createNotificationWithSpecialActivity(context: Context){
+    fun createNotificationWithSpecialActivity(context: Context) {
         val notifyIntent = Intent(context, MainActivity2::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
@@ -184,7 +186,7 @@ object Notification {
         }
     }
 
-    fun createNotificationWithLargeIcon(context: Context){
+    fun createNotificationWithLargeIcon(context: Context) {
         val icon = BitmapFactory.decodeResource(
             context.resources,
             R.drawable.aquarium
@@ -193,8 +195,10 @@ object Notification {
             .setSmallIcon(R.drawable.desk)
             .setContentTitle("imageTitle")
             .setContentText("imageDescription")
-            .setStyle(NotificationCompat.BigPictureStyle()
-                .bigPicture(icon).bigLargeIcon(null))
+            .setStyle(
+                NotificationCompat.BigPictureStyle()
+                    .bigPicture(icon).bigLargeIcon(null)
+            )
             .setLargeIcon(icon)
             .build()
 
@@ -203,7 +207,7 @@ object Notification {
         }
     }
 
-    fun createNotificationWithLargeText(context: Context){
+    fun createNotificationWithLargeText(context: Context) {
         val icon = BitmapFactory.decodeResource(
             context.resources,
             R.drawable.aquarium
@@ -214,8 +218,10 @@ object Notification {
             .setContentTitle("Joe")
             .setContentText("Lending Money")
             .setLargeIcon(icon)
-            .setStyle(NotificationCompat.BigTextStyle()
-                .bigText("long long long long long long long long long long text "))
+            .setStyle(
+                NotificationCompat.BigTextStyle()
+                    .bigText("long long long long long long long long long long text ")
+            )
             .build()
 
         with(NotificationManagerCompat.from(context)) {
@@ -223,19 +229,25 @@ object Notification {
         }
     }
 
-    fun createNotificationWithConversationText(context: Context){
-        val message1 = NotificationCompat.MessagingStyle.Message("Hi, there",
+    fun createNotificationWithConversationText(context: Context) {
+        val message1 = NotificationCompat.MessagingStyle.Message(
+            "Hi, there",
             12345L,
-            "Martin")
-        val message2 = NotificationCompat.MessagingStyle.Message("Hello",
+            "Martin"
+        )
+        val message2 = NotificationCompat.MessagingStyle.Message(
+            "Hello",
             12345L,
-            "You")
+            "You"
+        )
 
         val notification = NotificationCompat.Builder(context, NotificationChannels.CHANNEL1)
             .setSmallIcon(R.drawable.desk)
-            .setStyle(NotificationCompat.MessagingStyle("Arun")
-                .addMessage(message1)
-                .addMessage(message2))
+            .setStyle(
+                NotificationCompat.MessagingStyle("Arun")
+                    .addMessage(message1)
+                    .addMessage(message2)
+            )
             .build()
 
         with(NotificationManagerCompat.from(context)) {
@@ -243,13 +255,13 @@ object Notification {
         }
     }
 
-    fun createNotificationWithMediaControl(context: Context){
+    fun createNotificationWithMediaControl(context: Context) {
         val icon = BitmapFactory.decodeResource(
             context.resources,
             R.drawable.aquarium
         )
 
-        val mediaSession = MediaSessionCompat(context,"myTag")
+        val mediaSession = MediaSessionCompat(context, "myTag")
 
         val notification = NotificationCompat.Builder(context, NotificationChannels.CHANNEL1)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -257,9 +269,11 @@ object Notification {
             .addAction(R.drawable.previous, "Previous", null)
             .addAction(R.drawable.pause, "Pause", null)
             .addAction(R.drawable.next, "Next", null)
-            .setStyle(androidx.media.app.NotificationCompat.MediaStyle()
-                .setShowActionsInCompactView(0,1,2)
-                .setMediaSession(mediaSession.sessionToken))
+            .setStyle(
+                androidx.media.app.NotificationCompat.MediaStyle()
+                    .setShowActionsInCompactView(0, 1, 2)
+                    .setMediaSession(mediaSession.sessionToken)
+            )
             .setContentTitle("music_land")
             .setContentText("Creative Awesome Band")
             .setLargeIcon(icon)
@@ -270,10 +284,12 @@ object Notification {
         }
     }
 
-    fun createFullScreenIntentNotification(context: Context){
+    fun createFullScreenIntentNotification(context: Context) {
         val fullScreenIntent = Intent(context, MainActivity2::class.java)
-        val fullScreenPendingIntent = PendingIntent.getActivity(context, 0,
-            fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
+        val fullScreenPendingIntent = PendingIntent.getActivity(
+            context, 0,
+            fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+        )
 
         val notificationBuilder =
             NotificationCompat.Builder(context, NotificationChannels.CHANNEL1)
@@ -290,37 +306,41 @@ object Notification {
         }
     }
 
-    fun createGroupNotification(context: Context){
+    fun createGroupNotification(context: Context) {
         val icon = BitmapFactory.decodeResource(
             context.resources,
             R.drawable.aquarium
         )
 
-        val newMessageNotification1 = NotificationCompat.Builder(context, NotificationChannels.CHANNEL1)
-            .setSmallIcon(R.drawable.email)
-            .setContentTitle("Arun")
-            .setContentText("Ooo")
-            .setLargeIcon(icon)
-            .setGroup(GROUP_KEY_WORK_EMAIL)
-            .build()
+        val newMessageNotification1 =
+            NotificationCompat.Builder(context, NotificationChannels.CHANNEL1)
+                .setSmallIcon(R.drawable.email)
+                .setContentTitle("Arun")
+                .setContentText("Ooo")
+                .setLargeIcon(icon)
+                .setGroup(GROUP_KEY_WORK_EMAIL)
+                .build()
 
-        val newMessageNotification2 = NotificationCompat.Builder(context, NotificationChannels.CHANNEL1)
-            .setSmallIcon(R.drawable.email)
-            .setContentTitle("Alex")
-            .setContentText("Outside")
-            .setLargeIcon(icon)
-            .setGroup(GROUP_KEY_WORK_EMAIL)
-            .build()
+        val newMessageNotification2 =
+            NotificationCompat.Builder(context, NotificationChannels.CHANNEL1)
+                .setSmallIcon(R.drawable.email)
+                .setContentTitle("Alex")
+                .setContentText("Outside")
+                .setLargeIcon(icon)
+                .setGroup(GROUP_KEY_WORK_EMAIL)
+                .build()
 
         val summaryNotification = NotificationCompat.Builder(context, NotificationChannels.CHANNEL1)
             .setContentTitle("Summary")
             .setContentText("Two new messages")
             .setSmallIcon(R.drawable.email)
-            .setStyle(NotificationCompat.InboxStyle()
-                .addLine("Arun Ooo")
-                .addLine("Alex Outside")
-                .setBigContentTitle("2 new messages")
-                .setSummaryText("arun@example.com"))
+            .setStyle(
+                NotificationCompat.InboxStyle()
+                    .addLine("Arun Ooo")
+                    .addLine("Alex Outside")
+                    .setBigContentTitle("2 new messages")
+                    .setSummaryText("arun@example.com")
+            )
             .setGroup(GROUP_KEY_WORK_EMAIL)
             .setGroupSummary(true)
             .build()
@@ -333,4 +353,34 @@ object Notification {
         }
 
     }
+
+    fun createCustomNotification(context: Context) {
+        val notificationLayout = RemoteViews(context.packageName, R.layout.notification_small)
+        val notificationLayoutExpanded =
+            RemoteViews(context.packageName, R.layout.notification_small)
+
+        val customNotification = NotificationCompat.Builder(context, NotificationChannels.CHANNEL1)
+            .setSmallIcon(R.drawable.notification_icon)
+            .setStyle(NotificationCompat.DecoratedCustomViewStyle())
+            .setCustomContentView(notificationLayout)
+            .setCustomBigContentView(notificationLayoutExpanded)
+            .build()
+        with(NotificationManagerCompat.from(context)) {
+            notify(1445457, customNotification)
+        }
+    }
+
+    fun createBubble(context: Context) {
+        Log.i("showNotification", "createBubble")
+        BubbleNotificationView(context).showNotification(
+            Message(
+                123,
+                "Arun",
+                "Hello",
+                R.drawable.ic_base_person
+            )
+        )
+    }
+
+
 }

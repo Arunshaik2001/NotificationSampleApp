@@ -21,6 +21,7 @@ object NotificationChannels {
             )
             notificationChannel.description = "My first notification channel"
             notificationChannel.lockscreenVisibility = Notification.VISIBILITY_SECRET
+            notificationChannel.setShowBadge(true)
 
             val notificationManager = context.getSystemService(ComponentActivity.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(notificationChannel)

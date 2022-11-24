@@ -2,26 +2,37 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/notification_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/notification_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.NotificationSampleApp"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivity3"
+            android:allowEmbedded="true"
+            android:resizeableActivity="true"
+            android:documentLaunchMode="always"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".MainActivity2"
+            android:excludeFromRecents="true"
             android:exported="false"
             android:label="@string/title_activity_main2"
             android:showOnLockScreen="true"
             android:taskAffinity=""
-            android:excludeFromRecents="true"
             android:theme="@style/Theme.NotificationSampleApp">
             <meta-data
                 android:name="android.app.lib_name"
@@ -30,7 +41,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.NotificationSampleApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +53,7 @@
                 android:value="" />
         </activity>
 
-        <receiver android:name=".broadcast_receiver.MyBroadCastReceiver"/>
+        <receiver android:name=".broadcast_receiver.MyBroadCastReceiver" />
     </application>
 
 </manifest>
