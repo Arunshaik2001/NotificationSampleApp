@@ -1,7 +1,7 @@
 # NotificationSampleApp
 App demonstrates all types of notifications
 
-Topics to cover:
+Topics covered:
 1. Notification Channels
 2. Requesting Notification Permission
 3. Simple Notification
