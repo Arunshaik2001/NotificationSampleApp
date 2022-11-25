@@ -1,7 +1,7 @@
 # NotificationSampleApp
 App demonstrates all types of notifications.
 
-Checkout my medium article https://medium.com/p/718961054961
+Checkout my medium article https://proandroiddev.com/all-about-notifications-in-android-718961054961
 
 Topics covered:
 1.  Notification Channels
