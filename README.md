@@ -1,5 +1,7 @@
 # NotificationSampleApp
-App demonstrates all types of notifications
+App demonstrates all types of notifications.
+
+Checkout my medium article https://medium.com/p/718961054961
 
 Topics covered:
 1.  Notification Channels
