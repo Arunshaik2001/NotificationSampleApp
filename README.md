@@ -16,4 +16,4 @@ Topics covered:
 10. Notification Groups
 11. Notification Badge
 12. Custom Notification
-13. Bubbles
+13. Bubbles.
