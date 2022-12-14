@@ -15,5 +15,5 @@ Topics covered:
 9.  Time-sensitive Notification
 10. Notification Groups
 11. Notification Badge
-12. Custom Notification
+12. Custom Notification.
 13. Bubbles.
